@@ -233,7 +233,7 @@ for i in range (len(organisms_list)):
 transposed_list = [[animal] for animal in organisms_list]
 
 # Specify the CSV file name
-csv_file_name = 'name.csv'
+csv_file_name = 'datasets/name.csv'
 
 # Write the transposed list to the CSV file
 with open(csv_file_name, 'w', newline='') as csvfile:
@@ -247,7 +247,7 @@ with open(csv_file_name, 'w', newline='') as csvfile:
 transposed_list = [[desc] for desc in prompts]
 
 # Specify the CSV file name
-csv_file_name = 'description.csv'
+csv_file_name = 'datasets/h20_desc.csv'
 
 # Write the transposed list to the CSV file
 with open(csv_file_name, 'w', newline='') as csvfile:
