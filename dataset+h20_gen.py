@@ -1,4 +1,5 @@
 import torch
+import csv
 from transformers import AutoTokenizer, pipeline
 animal_list = [
     "Aardvark", "Abyssinian", "Afghan Hound", "African Bullfrog", "African Elephant",
@@ -202,19 +203,6 @@ generate_text = pipeline(
     device_map={"": "cuda:0"},
 )
 
-res = generate_text(
-    "Why is drinking water so healthy?",
-    min_new_tokens=2,
-    max_new_tokens=1024,
-    do_sample=False,
-    num_beams=1,
-    temperature=float(0.3),
-    repetition_penalty=float(1.2),
-    renormalize_logits=True
-)
-#print(res[0]["generated_text"])
-
-
 prompts = []
 
 def prompt_gen(token):
@@ -238,9 +226,33 @@ for i in range (len(organisms_list)):
   prompt_gen(organisms_list[i])
   key += 1
   print(key)
-  if key == 3:
-    break
+
+
+
+# Transpose the list to have each animal in a separate list
+transposed_list = [[animal] for animal in organisms_list]
+
+# Specify the CSV file name
+csv_file_name = 'name.csv'
+
+# Write the transposed list to the CSV file
+with open(csv_file_name, 'w', newline='') as csvfile:
+    csv_writer = csv.writer(csvfile)
+    csv_writer.writerows(transposed_list)
 
 
 
 
+# Transpose the list to have each desc in a separate list
+transposed_list = [[desc] for desc in prompts]
+
+# Specify the CSV file name
+csv_file_name = 'description.csv'
+
+# Write the transposed list to the CSV file
+with open(csv_file_name, 'w', newline='') as csvfile:
+    csv_writer = csv.writer(csvfile)
+    csv_writer.writerows(transposed_list)
+
+
+print(f'Data has been added to {csv_file_path}.')
